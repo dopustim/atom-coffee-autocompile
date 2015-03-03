@@ -60,7 +60,7 @@ class CoffeeAutocompileView extends View
           return
 
         key = item.substr(0, i).trim()
-        match = /^\s*\/\/\s*(.+)/.exec(key);
+        match = /^\s*#\s*(.+)/.exec(key)
 
         if match
           key = match[1]
@@ -91,7 +91,7 @@ class CoffeeAutocompileView extends View
     firstLine = null
 
     rl.on 'line', (line) ->
-      if firstLine is null
+      if firstLine is null and not line.match(/^#!/)?
         firstLine = line
         parse firstLine
 
