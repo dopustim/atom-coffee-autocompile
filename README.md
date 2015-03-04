@@ -13,13 +13,13 @@ main (string): path to your main Coffee-script file to be compiled
 ```
 
 ```
-// out: ../styles.css
+# out: ../styles.css
 ```
 
 ```
-// out: ../styles.css, compress: true
+# out: ../styles.css, compress: true
 ```
 
 ```
-// main: init.coffee
+# main: init.coffee
 ```
