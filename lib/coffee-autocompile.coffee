@@ -32,18 +32,19 @@ class StylusAutocompile
 
     console.log renderer
 
+    filePath = path.resolve path.dirname(params.file), params.out
     if params.sourcemap
       {js, v3SourceMap} = renderer
-      js += "\n\n//# sourceMappingURL=#{params.out}.map"
+      js += "\n//# sourceMappingURL=#{filePath}.map"
+      if params.compress
+        {code: js, map: v3SourceMap} = uglify.minify js, fromString: true, inSourceMap: JSON.parse(v3SourceMap), outSourceMap: "#{filePath}.map"
     else
       js = renderer
-    if params.uglify
-      js = uglify.minify(js, fromString: true).code
+      if params.compress
+        js = uglify.minify(js, fromString: true).code
 
-    filePath = path.resolve path.dirname(params.file), params.out
     @writeFile filePath, js
-    if v3SourceMap?
-      @writeFile "#{filePath}.map", v3SourceMap
+    @writeFile "#{filePath}.map", v3SourceMap if v3SourceMap
 
   getParams: (filePath, fileContent) ->
     serialized = @getSerializedParams fileContent
@@ -82,6 +83,7 @@ class StylusAutocompile
         atom.notifications.addSuccess "#{filePath} created"
 
   parseBoolean: (value) ->
-    value is 'true' or value is 'yes' or value is 1
+    (value is 'true' or value is 'yes' or value is 1) and
+      value isnt 'false' and value isnt 'no' and value isnt 0
 
 module.exports = new StylusAutocompile()
