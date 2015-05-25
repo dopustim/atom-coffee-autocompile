@@ -1,7 +1,7 @@
 {
   "name": "coffee-autocompile",
   "main": "./lib/coffee-autocompile",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "description": "Auto compile Coffee-script.",
   "repository": {
     "type": "git",
@@ -12,7 +12,9 @@
     "atom": ">0.50.0"
   },
   "activationCommands": {
-    "atom-text-editor[data-grammar~=\"source\"][data-grammar~=\"coffee\"]": [ "core:save" ]
+    "atom-text-editor[data-grammar~=\"source\"][data-grammar~=\"coffee\"]": [
+      "core:save"
+    ]
   },
   "dependencies": {
     "coffee-script": "^1.9.1",
