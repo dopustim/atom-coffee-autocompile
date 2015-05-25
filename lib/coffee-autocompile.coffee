@@ -1,8 +1,6 @@
 fs = require 'fs'
 path = require 'path'
-mkdirp = require 'mkdirp'
-coffee = require 'coffee-script'
-uglify = require 'uglify-js'
+[mkdirp, coffee, uglify] = []
 
 class StylusAutocompile
   activate: ->
@@ -27,10 +25,11 @@ class StylusAutocompile
     @render params, @activeEditor.getText()
 
   render: (params, source) ->
+    coffee ?= require 'coffee-script'
+    uglify ?= require 'uglify-js'
+
     renderer = coffee.compile source,
       sourceMap: params.sourcemap
-
-    console.log renderer
 
     filePath = path.resolve path.dirname(params.file), params.out
     if params.sourcemap
@@ -69,6 +68,7 @@ class StylusAutocompile
     serialized[0].replace(/^#\s+/, '').replace(/\n/g, '')
 
   writeFile: (filePath, content) ->
+    mkdirp ?= require 'mkdirp'
     dirPath = path.dirname filePath
     mkdirp dirPath, (err) =>
       if err
