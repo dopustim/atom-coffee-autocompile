@@ -2,7 +2,7 @@ fs = require 'fs'
 path = require 'path'
 [mkdirp, coffee, uglify] = []
 
-class StylusAutocompile
+class CoffeeAutocompile
   activate: ->
     @disposable = atom.commands.add 'atom-workspace', 'core:save', @handleSave
 
@@ -19,9 +19,18 @@ class StylusAutocompile
     @compile()
 
   compile: ->
-    params = @getParams @activeEditor.getURI(), @activeEditor.getText()
-    return unless params?
-
+    text = @activeEditor.getText()
+    firstComment = text.match /^\s*#\s*(.*)\n*/
+    return unless firstComment? and firstComment[1]?
+    paramsString = firstComment[1].replace(/\s/g,"")
+    params = {}
+    for param in paramsString.split ","
+      [key, value] = param.split ":"
+      if key? and value?
+        params[key] = value
+    params.compress = @parseBoolean params.compress
+    params.sourcemap = @parseBoolean params.sourcemap
+    return unless params.out or params.main
     @render params, @activeEditor.getText()
 
   render: (params, source) ->
@@ -31,7 +40,7 @@ class StylusAutocompile
     renderer = coffee.compile source,
       sourceMap: params.sourcemap
 
-    filePath = path.resolve path.dirname(params.file), params.out
+    filePath = path.resolve path.dirname(@activeEditor.getURI()), params.out
     if params.sourcemap
       {js, v3SourceMap} = renderer
       js += "\n//# sourceMappingURL=#{filePath}.map"
@@ -44,28 +53,6 @@ class StylusAutocompile
 
     @writeFile filePath, js
     @writeFile "#{filePath}.map", v3SourceMap if v3SourceMap
-
-  getParams: (filePath, fileContent) ->
-    serialized = @getSerializedParams fileContent
-    return unless serialized?
-
-    params = file: filePath
-    for param in serialized.split /\s*,\s*/
-      [key, value] = param.split /\s*:\s*/
-      continue unless key? and value?
-      params[key] = value
-
-    params.compress = @parseBoolean params.compress
-    params.sourcemap = @parseBoolean params.sourcemap
-    return params if params.out or params.main
-
-  getSerializedParams: (fileContent) ->
-    serialized = if fileContent.match /^#!/
-      fileContent.match /\n.*\n/
-    else
-      fileContent.match /^.*\n/
-    return unless serialized?
-    serialized[0].replace(/^#\s+/, '').replace(/\n/g, '')
 
   writeFile: (filePath, content) ->
     mkdirp ?= require 'mkdirp'
@@ -86,4 +73,4 @@ class StylusAutocompile
     (value is 'true' or value is 'yes' or value is 1) and
       value isnt 'false' and value isnt 'no' and value isnt 0
 
-module.exports = new StylusAutocompile()
+module.exports = new CoffeeAutocompile()
