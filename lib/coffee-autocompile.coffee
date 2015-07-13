@@ -20,18 +20,18 @@ class CoffeeAutocompile
 
   compile: ->
     text = @activeEditor.getText()
-    firstComment = text.match /^\s*#\s*(.*)\n*/
-    return unless firstComment? and firstComment[1]?
-    paramsString = firstComment[1].replace(/\s/g,"")
+    firstComment = text.match /^(?:#!.*\n)?\s*#\s*(.*)\n*/
+    return unless firstComment?[1]?
+    paramsString = firstComment[1].replace(/\s/g,'')
     params = {}
-    for param in paramsString.split ","
-      [key, value] = param.split ":"
+    for param in paramsString.split ','
+      [key, value] = param.split ':'
       if key? and value?
         params[key] = value
     params.compress = @parseBoolean params.compress
     params.sourcemap = @parseBoolean params.sourcemap
-    return unless params.out or params.main
-    @render params, @activeEditor.getText()
+    return unless params.out
+    @render params, text
 
   render: (params, source) ->
     coffee ?= require 'coffee-script'
@@ -43,9 +43,14 @@ class CoffeeAutocompile
     filePath = path.resolve path.dirname(@activeEditor.getURI()), params.out
     if params.sourcemap
       {js, v3SourceMap} = renderer
-      js += "\n//# sourceMappingURL=#{filePath}.map"
+      outSourceMap = path.relative path.dirname(filePath), filePath
       if params.compress
-        {code: js, map: v3SourceMap} = uglify.minify js, fromString: true, inSourceMap: JSON.parse(v3SourceMap), outSourceMap: "#{filePath}.map"
+        {code: js, map: v3SourceMap} = uglify.minify js,
+          fromString: true
+          inSourceMap: JSON.parse(v3SourceMap)
+          outSourceMap: "#{outSourceMap}.map"
+      else
+        js += "\n//# sourceMappingURL=#{outSourceMap}.map"
     else
       js = renderer
       if params.compress
