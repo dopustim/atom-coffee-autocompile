@@ -23,12 +23,14 @@ class CoffeeAutocompile
     firstComment = text.match /^\s*#\s*(.*)\n*/
     return unless firstComment? and firstComment[1]?
     paramsString = firstComment[1].replace(/\s/g,"")
-    params = path: path
+    params = {}
     for param in paramsString.split ","
       [key, value] = param.split ":"
-      continue unless key? and value?
-      params[key] = value
-
+      if key? and value?
+        params[key] = value
+    params.compress = @parseBoolean params.compress
+    params.sourcemap = @parseBoolean params.sourcemap
+    return unless params.out or params.main
     @render params, @activeEditor.getText()
 
   render: (params, source) ->
