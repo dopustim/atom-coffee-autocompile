@@ -2,7 +2,7 @@
   "name": "coffee-autocompile",
   "main": "./lib/coffee-autocompile",
   "version": "0.3.5",
-  "description": "Auto compile Coffee-script.",
+  "description": "Auto compile Coffee-Script.",
   "repository": {
     "type": "git",
     "url": "https://github.com/olmokramer/atom-coffee-autocompile"
@@ -15,6 +15,13 @@
     "atom-text-editor[data-grammar~=\"source\"][data-grammar~=\"coffee\"]": [
       "core:save"
     ]
+  },
+  "consumedServices": {
+    "status-bar": {
+      "versions": {
+        "^1.0.0": "consumeStatusBar"
+      }
+    }
   },
   "dependencies": {
     "coffee-script": "^1.9.1",
