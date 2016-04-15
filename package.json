@@ -22,6 +22,7 @@
     "coffee-script": "^1.9.1",
     "loophole": "^1.1.0",
     "mkdirp": "latest",
+    "resolve": "^1.1.7",
     "uglify-js": "^2.5.0"
   },
   "devDependencies": {
