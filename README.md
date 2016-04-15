@@ -12,9 +12,9 @@ Add the parameters on the first line (or the second line if the file contains a 
 * `sourcemap` (bool): create a sourcemap
   * The sourcemap file will be saved in {outputFilePath}.map
 
-<sup><a id="note-1" href="ref-1">1</a></sup> If the `compileIfNoOutSpecified` setting is enabled, this may be omitted. The file will then be saved in the same directory as the source file. If the file has the `.coffee` extension it will be removed, and the `.js` extension will always be appended.
+<sup><a id="note-1" href="#ref-1">1</a></sup> If the `compileIfNoOutSpecified` setting is enabled, this may be omitted. The file will then be saved in the same directory as the source file. If the file has the `.coffee` extension it will be removed, and the `.js` extension will always be appended.
 
-<sup><a id="note-2" href="ref-2">2</a></sup> The output filename may contain `$1` or `$2`, which will be replaced by the input basename and extension, respectively. So a file named `in.coffee` and is configured with `# out: $1.$2.js` will compile to `in.coffee.js`.
+<sup><a id="note-2" href="#ref-2">2</a></sup> The output filename may contain `$1` or `$2`, which will be replaced by the input basename and extension, respectively. So a file named `in.coffee` and is configured with `# out: $1.$2.js` will compile to `in.coffee.js`.
 
 Coffee autocompile will check if Coffee-script is installed in the (parent) directory of the Coffee-script file and use that one to compile the file. If no local installation is found, it uses the bundled Coffee-script module.
 
