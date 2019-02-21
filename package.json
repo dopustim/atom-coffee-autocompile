@@ -23,7 +23,7 @@
     "loophole": "^1.1.0",
     "mkdirp": "latest",
     "resolve": "^1.1.7",
-    "uglify-js": "^2.5.0"
+    "uglify-es": "^3.3.9"
   },
   "devDependencies": {
     "babel-eslint": "^4.1.3",
