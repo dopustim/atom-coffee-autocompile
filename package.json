@@ -19,7 +19,7 @@
     }
   },
   "dependencies": {
-    "coffee-script": "^1.9.1",
+    "coffeescript": "^2.3.2",
     "loophole": "^1.1.0",
     "mkdirp": "latest",
     "resolve": "^1.1.7",
