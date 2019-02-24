@@ -1,6 +1,11 @@
-# coffee-autocompile package
 
-Auto compile Coffee-script file on save.
+# Coffee Autocompile plugin for Atom
+
+[![apm](https://img.shields.io/apm/dm/coffee-autocompile.svg?style=flat-square)](https://atom.io/packages/coffee-autocompile)
+
+This plugin allows you easy compile CoffeeScipt files to JavaScript with options.
+
+Atom Package: https://atom.io/packages/coffee-autocompile
 
 ---
 
