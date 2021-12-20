@@ -1,0 +1,24 @@
+{
+    "menu": [{
+        "label": "Packages",
+        "submenu": [{
+            "label": "Coffee Autocompile",
+            "submenu": [{
+                "label": "Compile selection from Coffee to JavaScript",
+                "command": "coffee-autocompile:compile-direct"
+            },{
+                "label": "Compile file from Coffee to JavaScript",
+                "command": "coffee-autocompile:compile-file"
+            }]
+        }]
+    }],
+    "context-menu": {
+        "atom-text-editor[data-grammar~='coffee']": [{
+            "label": "Compile selection from Coffee to JavaScript",
+            "command": "coffee-autocompile:compile-direct"
+        },{
+            "label": "Compile file from Coffee to JavaScript",
+            "command": "coffee-autocompile:compile-file"
+        }]
+    }
+}

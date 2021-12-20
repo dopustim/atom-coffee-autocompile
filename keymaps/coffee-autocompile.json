@@ -1,0 +1,14 @@
+{
+    ".platform-win32 atom-text-editor[data-grammar~='coffee']": {
+        "ctrl-shift-c d": "coffee-autocompile:compile-direct",
+        "ctrl-shift-c f": "coffee-autocompile:compile-file"
+    },
+    ".platform-linux atom-text-editor[data-grammar~='coffee']": {
+        "ctrl-shift-c d": "coffee-autocompile:compile-direct",
+        "ctrl-shift-c f": "coffee-autocompile:compile-file"
+    },
+    ".platform-darwin atom-text-editor[data-grammar~='coffee']": {
+        "cmd-shift-c d": "coffee-autocompile:compile-direct",
+        "cmd-shift-c f": "coffee-autocompile:compile-file"
+    }
+}

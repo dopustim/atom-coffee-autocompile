@@ -1,12 +1,17 @@
+## [1.0.0] - 2021-12-20
 
-## 0.7.0
+- Rewrited logic
+- Improved UI
+- Changed options (see more information in README.md)
 
-* Replaced packages:
+## [0.7.0] - 2019-02-25
+
+- Replaced packages:
     - coffee-script => coffeescript
     - uglify-js => uglify-es
 
-* Updated packages:
+- Updated packages:
     - mkdirp
     - resolve
 
-* Solved the problem with destructuring assignment
+- Solved the problem with destructuring assignment

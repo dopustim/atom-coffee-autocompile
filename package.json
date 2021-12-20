@@ -1,19 +1,36 @@
 {
     "name": "coffee-autocompile",
-    "main": "./lib/coffee-autocompile",
-    "version": "0.7.0",
-    "description": "Compile CoffeeScipt files to JavaScript",
-    "keywords": [
-        "autocompile",
-        "compile",
-        "dopustim",
-        "coffee",
-        "coffeescript",
-        "js",
-        "javascript"
-    ],
-    "repository": "https://github.com/DopustimVladimir/atom-coffee-autocompile",
+    "version": "1.0.0",
+    "description": "Compile JavaScript from CoffeeScript with options and notifications",
+    "keywords": [ "dopustim", "coffee", "autocompile", "compile", "javascript", "js" ],
+    "author": "DopustimVladimir",
     "license": "MIT",
+    "repository": "https://github.com/dopustim/atom-coffee-autocompile",
+    "main": "./lib/main",
+    "dependencies": {
+        "coffeescript": "^2.6.1",
+        "uglify-js": "^3.14.5"
+    },
+    "devDependencies": {
+        "@dopustim/eslint-config": "^1.0.0",
+        "eslint": "^8.4.1"
+    },
+    "eslintConfig": {
+        "extends": "@dopustim/eslint-config",
+        "env": {
+            "atomtest": true,
+            "jasmine": true,
+            "es2020": true,
+            "node": true
+        },
+        "parserOptions": {
+            "sourceType": "module",
+            "ecmaVersion": 2020
+        },
+        "rules": {
+            "max-len": [ 1, { "code": 100 } ]
+        }
+    },
     "engines": {
         "atom": ">=1.30.0 <2.0.0"
     },
@@ -23,16 +40,5 @@
                 "^1.0.0": "consumeStatusBar"
             }
         }
-    },
-    "dependencies": {
-        "coffeescript": "^2.3.2",
-        "loophole": "^1.1.0",
-        "mkdirp": "^0.5.1",
-        "resolve": "^1.10.0",
-        "uglify-es": "^3.3.9"
-    },
-    "devDependencies": {
-        "babel-eslint": "^4.1.3",
-        "eslint": "^1.6.0"
     }
 }

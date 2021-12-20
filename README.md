@@ -1,44 +1,75 @@
 
-# Coffee Autocompile plugin for Atom
+# Coffee Autocompile for Atom
 
-[![apm](https://img.shields.io/apm/dm/coffee-autocompile.svg?style=flat-square)](https://atom.io/packages/coffee-autocompile)
+This plugin makes it easy to compile JavaScript from CoffeeScript with options and notifications.
 
-This plugin allows you easy compile CoffeeScipt files to JavaScript with options.
+[![Atom Package](https://img.shields.io/apm/dm/coffee-autocompile.svg?style=flat-square)](https://atom.io/packages/coffee-autocompile)
 
-Atom Package: https://atom.io/packages/coffee-autocompile
+## Installation
 
----
+Via Atom: Settings ➔ Install ➔ Search for "coffee-autocompile"
 
-Add the parameters on the first line (or the second line if the file contains a shebang) of the Coffee-script file.
+Via command line:
 
-* `out` (string)<sup><a id="ref-1" href="#note-1">1</a> <a id="ref-2" href="#note-2">2</a></sup>: path of JS file to create
-* `bare` (bool): pass the `--bare` option to the Coffee-script compiler
-* `compress` (bool): compress output JavaScript
-* `sourcemap` (bool): create a sourcemap
-  * The sourcemap file will be saved in {outputFilePath}.map
-
-<sup><a id="note-1" href="#ref-1">1</a></sup> If the `compileIfNoOutSpecified` setting is enabled, this may be omitted. The file will then be saved in the same directory as the source file. If the file has the `.coffee` extension it will be removed, and the `.js` extension will always be appended.
-
-<sup><a id="note-2" href="#ref-2">2</a></sup> The output filename may contain `$1` or `$2`, which will be replaced by the input basename and extension, respectively. So a file named `in.coffee` and is configured with `# out: $1.$2.js` will compile to `in.coffee.js`.
-
-Coffee autocompile will check if Coffee-script is installed in the (parent) directory of the Coffee-script file and use that one to compile the file. If no local installation is found, it uses the bundled Coffee-script module.
-
-## Examples
-
-Compile the CoffeeScript file to main.js in the same directory as the source file
-
-```coffee
-# out: ./main.js
+```sh
+apm install coffee-autocompile
 ```
 
-Compress the file and saves to the absolute path /path/to/main.min.js
+## Usage
+
+Via menu: Packages ➔ Coffee Autocompile ➔ Compile ...
+
+Via context menu: Right Click ➔ Compile ...
+
+## Keymaps
+
+Works only with ".coffee" files!
+
+**Windows / Linux**
+
+| Command | Description |
+| --- | --- |
+| `Ctrl+ Shift+ C` then `D` | compile selection |
+| `Ctrl+ Shift+ C` then `F` | compile file |
+
+**macOS**
+
+| Command | Description |
+| --- | --- |
+| `Cmd+ Shift+ C` then `D` | compile selection |
+| `Cmd+ Shift+ C` then `F` | compile file |
+
+## Options Line
+
+The options line should be the first. The output file will be minified (default behaviour). Always start the options line with comment `#-` and separate options by comma `, `.
+
+| Parameter | Description |
+| --- | --- |
+| `out: path/to/output.js` | path to output (target) JavaScript file |
+| `pretty: true` | makes JavaScript pretty (`false` to vice versa) |
+
+## Example
+
+**index.coffee**
 
 ```coffee
-# out: /path/to/main.min.js, compress: true
+#- out: build/index.js, pretty: true
+a = (num for num in [ 0..5 ] when num % 2 is 0)
 ```
 
-Save a sourcemap in the same directory as the output file (the parent directory of the source file)
+**build/index.js**
 
-```coffee
-# out: ../main.js, sourcemap: true
+```js
+var a, num;
+
+a = function() {
+    var i, results;
+    results = [];
+    for (num = i = 0; i <= 5; num = ++i) {
+        if (num % 2 === 0) {
+            results.push(num);
+        }
+    }
+    return results;
+}();
 ```
