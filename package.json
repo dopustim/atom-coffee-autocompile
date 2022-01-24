@@ -12,7 +12,7 @@
         "uglify-js": "^3.14.5"
     },
     "devDependencies": {
-        "@dopustim/eslint-config": "^1.0.0",
+        "@dopustim/eslint-config": "^1.1.0",
         "eslint": "^8.7.0"
     },
     "eslintConfig": {
