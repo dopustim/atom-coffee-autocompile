@@ -8,7 +8,7 @@
     "repository": "https://github.com/dopustim/atom-coffee-autocompile",
     "main": "./lib/main",
     "dependencies": {
-        "coffeescript": "^2.6.1",
+        "coffeescript": "^2.7.0",
         "uglify-js": "^3.14.5"
     },
     "devDependencies": {
